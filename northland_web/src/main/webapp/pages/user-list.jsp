@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>数据 - AdminLTE2定制版</title>
+<title>用户管理</title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 
@@ -111,7 +111,7 @@
 										<button type="button" class="btn btn-default" title="新建" onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
-										
+
 										<button type="button" class="btn btn-default" title="刷新">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
@@ -152,7 +152,7 @@
 											<td>${user.username }</td>
 											<td>${user.email }</td>
 											<td>${user.phoneNum }</td>
-											<td>${user.statusStr }</td>											
+											<td>${user.statusStr }</td>
 											<td class="text-center">
 												<a href="${pageContext.request.contextPath}/user/findById.do?id=${user.id}" class="btn bg-olive btn-xs">详情</a>
 												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>
@@ -306,14 +306,14 @@
 								// 激活导航位置
 								setSidebarActive("admin-datalist");
 
-								// 列表按钮 
+								// 列表按钮
 								$("#dataList td input[type='checkbox']")
 										.iCheck(
 												{
 													checkboxClass : 'icheckbox_square-blue',
 													increaseArea : '20%'
 												});
-								// 全选操作 
+								// 全选操作
 								$("#selall")
 										.click(
 												function() {

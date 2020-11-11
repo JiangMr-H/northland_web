@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>用户管理</title>
+<title>店铺品牌详情</title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 
@@ -79,15 +79,15 @@
 			<!-- 内容头部 -->
 			<section class="content-header">
 			<h1>
-				用户管理 <small>全部用户</small>
+				店铺信息 <small>店铺详情</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/user/findAll.do">用户管理</a></li>
+					href="${pageContext.request.contextPath}/pages/StoreBrandChanges.jsp">店铺信息</a></li>
 
-				<li class="active">全部用户</li>
+				<li class="active">店铺详情</li>
 			</ol>
 			</section>
 			<!-- 内容头部 /-->
@@ -103,31 +103,6 @@
 
 						<!-- 数据表格 -->
 						<div class="table-box">
-
-							<!--工具栏-->
-							<div class="pull-left">
-								<div class="form-group form-inline">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新建" onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
-											<i class="fa fa-file-o"></i> 新建
-										</button>
-                                        <br/><br/>
-										<i style="color: red;font-size: small">每个新增用户需添加USER权限，否则无法正常登陆</i>
-										<%--<button type="button" class="btn btn-default" title="刷新">
-											<i class="fa fa-refresh"></i> 刷新
-										</button>--%>
-									</div>
-								</div>
-							</div>
-							<div class="box-tools pull-right">
-								<div class="has-feedback">
-									<%--<input type="text" class="form-control input-sm"
-										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>--%>
-								</div>
-							</div>
-							<!--工具栏/-->
-
 							<!--数据列表-->
 							<table id="dataList"
 								class="table table-bordered table-striped table-hover dataTable">
@@ -136,78 +111,41 @@
 										<th class="" style="padding-right: 0px"><input
 											id="selall" type="checkbox" class="icheckbox_square-blue">
 										</th>
-										<th class="sorting_asc">ID</th>
-										<th class="sorting_desc">用户名</th>
-										<th class="sorting_asc sorting_asc_disabled">邮箱</th>
-										<th class="sorting_desc sorting_desc_disabled">联系电话</th>
-										<th class="sorting">状态</th>
-										<th class="text-center">操作</th>
+										<th class="sorting_asc sorting_asc_disabled">店铺ID</th>
+										<th class="sorting_asc sorting_asc_disabled">店铺代码</th>
+										<th class="sorting_asc sorting_asc_disabled">店铺简称</th>
+										<th class="sorting_desc sorting_desc_disabled">店铺全称</th>
+										<th class="sorting_desc sorting_desc_disabled">品牌全称</th>
+										<th class="sorting_desc sorting_desc_disabled">品牌代码</th>
+										<th class="sorting_desc sorting_desc_disabled">允许使用</th>
 									</tr>
 								</thead>
 								<tbody>
 
-									<c:forEach items="${pageInfo.list}" var="user">
+									<c:forEach items="${storeBrandList}" var="storeBrandList">
 										<tr>
 											<td><input name="ids" type="checkbox"></td>
-											<td>${user.id }</td>
-											<td>${user.username }</td>
-											<td>${user.email }</td>
-											<td>${user.phoneNum }</td>
-											<td>${user.statusStr }</td>
-											<td class="text-center">
-												<a href="${pageContext.request.contextPath}/user/findById.do?id=${user.id}" class="btn bg-olive btn-xs">详情</a>
-												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>
-											</td>
+											<td>${storeBrandList.shopID }</td>
+											<td>${storeBrandList.shopCode }</td>
+											<td>${storeBrandList.shopName }</td>
+											<td>${storeBrandList.shopFullName }</td>
+											<td>${storeBrandList.fullName }</td>
+											<td>${storeBrandList.cardCode }</td>
+											<td>${storeBrandList.allowUsed }</td>
 										</tr>
 									</c:forEach>
 								</tbody>
-								<!--
-                            <tfoot>
-                            <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
-                            </tr>
-                            </tfoot>-->
 							</table>
 							<!--数据列表/-->
 
 						</div>
 						<!-- 数据表格 /-->
-
+						<div class="box-tools text-center">
+							<button type="button" class="btn bg-default"
+									onclick="location.href='${pageContext.request.contextPath}/StoreBrand/findStoreBrandByShopCode.do?ShopCode=${storeBrandList.shopCode}'">返回</button>
+						</div>
 					</div>
 					<!-- /.box-body -->
-
-					<!-- .box-footer-->
-					<div class="box-footer">
-						<div class="pull-left">
-							<div class="form-group form-inline">
-								总共${pageInfo.pages}页，  每页
-								<select class="form-control" id="changePageSize" onchange="changePageSize()">
-									<option>10</option>
-									<option>5</option>
-									<option>15</option>
-									<option>20</option>
-								</select> 条
-							</div>
-						</div>
-
-						<div class="box-tools pull-right">
-							<ul class="pagination">
-								<li><a href="${pageContext.request.contextPath}/user/findAll.do?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a></li>
-								<li><a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a></li>
-								<c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-									<li><a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
-								</c:forEach>
-								<li><a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a></li>
-								<li><a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" aria-label="Next">尾页</a></li>
-							</ul>
-						</div>
-
-					</div>
-					<!-- /.box-footer-->
 
 				</div>
 

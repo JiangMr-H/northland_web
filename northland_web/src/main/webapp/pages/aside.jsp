@@ -55,7 +55,7 @@
 				</ul>
 			</li>
 			<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
-					<span>基础数据</span> <span class="pull-right-container"> <i
+					<span>地址修改</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>
@@ -63,7 +63,7 @@
 					<security:authorize access="hasAnyRole('AddressModification','ADMIN')">
 					<li id="system-setting"><a
 						href="${pageContext.request.contextPath}/pages/Select.jsp"> <i
-							class="fa fa-circle-o"></i> 调拨单地址修改
+							class="fa fa-circle-o"></i> 调拨单与JIT地址修改
 					</a>
 					</li>
 					</security:authorize>
@@ -74,13 +74,20 @@
 						</a>
 						</li>
 					</security:authorize>
-					<security:authorize access="hasAnyRole('ProductInformationImport','ADMIN')">
+					<security:authorize access="hasAnyRole('StoreBrandChangesInBulk','ADMIN')">
 						<li id="system-setting"><a
-								href="${pageContext.request.contextPath}/pages/BatchImport.jsp"> <i
-								class="fa fa-circle-o"></i> 货品资料批量导入
+								href="${pageContext.request.contextPath}/pages/StoreBrandChanges.jsp"> <i
+								class="fa fa-circle-o"></i> 店铺品牌批量修改
 						</a>
 						</li>
 					</security:authorize>
+<%--					<security:authorize access="hasAnyRole('ProductInformationImport','ADMIN')">--%>
+<%--						<li id="system-setting"><a--%>
+<%--								href="${pageContext.request.contextPath}/pages/BatchImport.jsp"> <i--%>
+<%--								class="fa fa-circle-o"></i> 货品资料批量导入--%>
+<%--						</a>--%>
+<%--						</li>--%>
+<%--					</security:authorize>--%>
 				</ul>
 			</li>
 
