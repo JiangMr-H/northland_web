@@ -9,9 +9,21 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface IStoreBrandDao {
+    /**
+     * 品牌查询
+     * @param cardId
+     * @return
+     */
+    @Select("select CardID,CardCode,CardName,FullName,AllowUsed from SD_Mat_Card where CardID=#{cardId}")
+    List<SD_Mat_Card> findCardByCardId(String cardId);
+
+
+
+
 
     /**
      * 页面查询
+     *
      * @param shopCode
      * @return
      */
@@ -23,6 +35,7 @@ public interface IStoreBrandDao {
 
     /**
      * 详情
+     *
      * @param shopCode
      * @return
      */
@@ -35,6 +48,7 @@ public interface IStoreBrandDao {
 
     /**
      * 查询店铺没有的品牌
+     *
      * @param shopId
      * @return
      */

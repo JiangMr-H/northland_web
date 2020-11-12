@@ -140,15 +140,15 @@
 
 						</div>
 						<!-- 数据表格 /-->
-						<div class="box-tools text-center">
-							<button type="button" class="btn bg-default"
-									onclick="location.href='${pageContext.request.contextPath}/StoreBrand/findStoreBrandByShopCode.do?ShopCode=${storeBrandList.shopCode}'">返回</button>
-						</div>
+
 					</div>
 					<!-- /.box-body -->
 
 				</div>
-
+					<div class="box-tools text-center">
+						<button type="button" class="btn bg-default"
+								onclick="location.href='${pageContext.request.contextPath}/StoreBrand/findStoreBrandByShopCode.do?ShopCode=${storeBrandList.shopCode }'">返回</button>
+					</div>
 				</section>
 				<!-- 正文区域 /-->
 

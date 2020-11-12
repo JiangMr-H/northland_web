@@ -195,7 +195,7 @@
 								<div class="form-group form-inline">
 									<div class="btn-group">
 										<button type="button" class="btn btn-default" title="新建"
-											onclick="location.href='${pageContext.request.contextPath}/pages/product-add.jsp'">
+											onclick="location.href='${pageContext.request.contextPath}/pages/product-StoreBrand-add.jsp'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										<button type="button" class="btn btn-default" title="删除">
@@ -472,12 +472,12 @@
 			// 激活导航位置
 			setSidebarActive("admin-datalist");
 
-			// 列表按钮 
+			// 列表按钮
 			$("#dataList td input[type='checkbox']").iCheck({
 				checkboxClass : 'icheckbox_square-blue',
 				increaseArea : '20%'
 			});
-			// 全选操作 
+			// 全选操作
 			$("#selall").click(function() {
 				var clicks = $(this).is(':checked');
 				if (!clicks) {

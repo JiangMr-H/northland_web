@@ -79,15 +79,15 @@
 			<!-- 内容头部 -->
 			<section class="content-header">
 			<h1>
-				店铺信息 <small>查询店铺</small>
+				品牌信息 <small>查询品牌</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/pages/StoreBrandChanges.jsp">店铺信息</a></li>
+					href="${pageContext.request.contextPath}/pages/StoreBrandChanges.jsp">品牌信息</a></li>
 
-				<li class="active">查询店铺</li>
+				<li class="active">查询品牌</li>
 			</ol>
 			</section>
 			<!-- 内容头部 /-->
@@ -105,11 +105,11 @@
 						<div class="table-box">
 
 							<!--工具栏-->
-							<form action="${pageContext.request.contextPath}/StoreBrand/findStoreBrandByShopCode.do" method="post">
+							<form action="${pageContext.request.contextPath}/StoreBrand/findCardByCardId.do" method="get">
 
 								<div class="pull-left text-center ">
 
-									<div style="width: 80px;margin-top: 5px;float: left;margin-left: 30px">店铺代码：</div>
+									<div style="width: 80px;margin-top: 5px;float: left;margin-left: 30px">品牌代码：</div>
 
 									<input type="text" class="form-control"  name="ShopCode" id="shopCode"
 										   placeholder="店铺代码" style="width: 200px; float: left;margin-right: 30px" value="">
@@ -134,27 +134,25 @@
 										<th class="" style="padding-right: 0px"><input
 											id="selall" type="checkbox" class="icheckbox_square-blue">
 										</th>
-										<th class="sorting_asc">店铺ID</th>
-										<th class="sorting_desc">店铺代码</th>
-										<th class="sorting_asc sorting_asc_disabled">店铺简称</th>
-										<th class="sorting_desc sorting_desc_disabled">店铺全称</th>
-										<th class="sorting">对应仓库</th>
+										<th class="sorting_asc">品牌ID</th>
+										<th class="sorting_desc">品牌代码</th>
+										<th class="sorting_asc sorting_asc_disabled">品牌简称</th>
+										<th class="sorting_desc sorting_desc_disabled">品牌全称</th>
 										<th class="text-center">操作</th>
 									</tr>
 								</thead>
 								<tbody>
 
-									<c:forEach items="${storeBrands}" var="storeBrands">
+									<c:forEach items="${sdMatCard}" var="sdMatCard">
 										<tr>
 											<td><input name="ids" type="checkbox"></td>
-											<td>${storeBrands.shopID }</td>
-											<td>${storeBrands.shopCode }</td>
-											<td>${storeBrands.shopName }</td>
-											<td>${storeBrands.shopFullName }</td>
-											<td>${storeBrands.stockName }</td>
+											<td>${sdMatCard.cardID }</td>
+											<td>${sdMatCard.cardCode }</td>
+											<td>${sdMatCard.cardName }</td>
+											<td>${sdMatCard.fullName }</td>
 											<td class="text-center">
-												<a href="${pageContext.request.contextPath}/StoreBrand/findByShopCode.do?shopCode=${storeBrands.shopCode}" class="btn bg-olive btn-xs">详情</a>
-												<a href="${pageContext.request.contextPath}/StoreBrand/findByShopCodeAndAllRole.do?id=${storeBrands.shopCode}" class="btn bg-olive btn-xs">添加品牌</a>
+<%--												<a href="${pageContext.request.contextPath}/StoreBrand/findByShopCode.do?shopCode=${storeBrands.shopCode}" class="btn bg-olive btn-xs">详情</a>--%>
+												<a href="${pageContext.request.contextPath}/StoreBrand/findShopByIdAndAllCard.do?ShopID=${storeBrands.shopID}&shopCode=${storeBrands.shopCode}" class="btn bg-olive btn-xs">添加店铺</a>
 											</td>
 										</tr>
 									</c:forEach>

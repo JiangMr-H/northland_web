@@ -1,6 +1,7 @@
 package com.northland.service.Impl;
 
 import com.northland.dao.IStoreBrandDao;
+import com.northland.domain.SD_Mat_Card;
 import com.northland.domain.StoreBrand;
 import com.northland.service.IStoreBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,15 @@ public class StoreBrandServiceImpl implements IStoreBrandService {
     @Override
     public List<StoreBrand> findByShopID(String shopId) {
        return storeBrandDao.findByShopID(shopId);
+    }
+
+    @Override
+    public List<SD_Mat_Card> findOtherCardCodes(String shopId) {
+        return storeBrandDao.findOtherCardCodes(shopId);
+    }
+
+    @Override
+    public List<SD_Mat_Card> findCardByCardId(String cardId) {
+        return storeBrandDao.findCardByCardId(cardId);
     }
 }
