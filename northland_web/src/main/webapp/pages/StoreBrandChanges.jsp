@@ -105,13 +105,13 @@
 						<div class="table-box">
 
 							<!--工具栏-->
-							<form action="${pageContext.request.contextPath}/StoreBrand/findCardByCardId.do" method="get">
+							<form action="${pageContext.request.contextPath}/StoreBrand/findCardByCardName.do" method="get">
 
 								<div class="pull-left text-center ">
 
 									<div style="width: 80px;margin-top: 5px;float: left;margin-left: 30px">品牌代码：</div>
 
-									<input type="text" class="form-control"  name="ShopCode" id="shopCode"
+									<input type="text" class="form-control"  name="CardName" id="CardName"
 										   placeholder="店铺代码" style="width: 200px; float: left;margin-right: 30px" value="">
 								</div>
 								<div class="pull-left">

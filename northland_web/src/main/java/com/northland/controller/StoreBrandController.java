@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * 店铺与品牌批量关联
+ * 品牌批量关联多个店铺
  */
 @Controller
 @RequestMapping("/StoreBrand")
@@ -25,21 +25,21 @@ public class StoreBrandController {
     /**
      * 通过CardID查询品牌信息
      *
-     * @param cardId
+     * @param cardName
      * @return
      * @throws Exception
      */
-    @RequestMapping("/findCardByCardId.do")
-    public ModelAndView findCardByCardId(@RequestParam(name = "CardID", required = false) String cardId) throws Exception {
+    @RequestMapping("/findCardByCardName.do")
+    public ModelAndView findCardByCardName(@RequestParam(name = "CardName", required = false) String cardName) throws Exception {
         try {
-            if (cardId != null) {
-                cardId = new String(cardId.getBytes("iso8859-1"), "utf-8");
+            if (cardName != null) {
+                cardName = new String(cardName.getBytes("iso8859-1"), "utf-8");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         ModelAndView mv = new ModelAndView();
-        List<SD_Mat_Card> sdMatCard = StoreBrandService.findCardByCardId(cardId);
+        List<SD_Mat_Card> sdMatCard = StoreBrandService.findCardByCardName(cardName);
         mv.addObject("sdMatCard", sdMatCard);
         mv.setViewName("StoreBrandChanges");
         return mv;

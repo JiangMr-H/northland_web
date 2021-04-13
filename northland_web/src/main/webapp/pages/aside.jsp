@@ -74,20 +74,21 @@
 						</a>
 						</li>
 					</security:authorize>
-					<security:authorize access="hasAnyRole('StoreBrandChangesInBulk','ADMIN')">
+				</ul>
+			</li>
+			<li class="treeview"><a href="#"> <i class="fa fa-cogs"></i>
+				<span>货品信息</span> <span class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+					<security:authorize access="hasAnyRole('ProductInformation','ADMIN')">
 						<li id="system-setting"><a
-								href="${pageContext.request.contextPath}/pages/StoreBrandChanges.jsp"> <i
-								class="fa fa-circle-o"></i> 店铺品牌批量修改
+								href="${pageContext.request.contextPath}/pages/productInformation.jsp"> <i
+								class="fa fa-circle-o"></i> 货品信息管理
 						</a>
 						</li>
 					</security:authorize>
-<%--					<security:authorize access="hasAnyRole('ProductInformationImport','ADMIN')">--%>
-<%--						<li id="system-setting"><a--%>
-<%--								href="${pageContext.request.contextPath}/pages/BatchImport.jsp"> <i--%>
-<%--								class="fa fa-circle-o"></i> 货品资料批量导入--%>
-<%--						</a>--%>
-<%--						</li>--%>
-<%--					</security:authorize>--%>
 				</ul>
 			</li>
 

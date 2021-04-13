@@ -13,5 +13,5 @@ public interface IStoreBrandService {
 
     List<SD_Mat_Card> findOtherCardCodes(String shopId);
 
-    List<SD_Mat_Card> findCardByCardId(String cardId);
+    List<SD_Mat_Card> findCardByCardName(String cardName);
 }

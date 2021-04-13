@@ -33,7 +33,7 @@ public class StoreBrandServiceImpl implements IStoreBrandService {
     }
 
     @Override
-    public List<SD_Mat_Card> findCardByCardId(String cardId) {
-        return storeBrandDao.findCardByCardId(cardId);
+    public List<SD_Mat_Card> findCardByCardName(String cardName) {
+        return storeBrandDao.findCardByCardName(cardName);
     }
 }

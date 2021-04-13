@@ -4,6 +4,7 @@ import com.northland.domain.Role;
 import com.northland.domain.SD_Mat_Card;
 import com.northland.domain.StoreBrand;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -11,15 +12,11 @@ import java.util.List;
 public interface IStoreBrandDao {
     /**
      * 品牌查询
-     * @param cardId
+     * @param cardName
      * @return
      */
-    @Select("select CardID,CardCode,CardName,FullName,AllowUsed from SD_Mat_Card where CardID=#{cardId}")
-    List<SD_Mat_Card> findCardByCardId(String cardId);
-
-
-
-
+    @Select("select CardID,CardCode,CardName,FullName,AllowUsed from SD_Mat_Card where CardName like '%${cardName}%'")
+    List<SD_Mat_Card> findCardByCardName(@Param("cardName") String cardName);
 
     /**
      * 页面查询
@@ -31,7 +28,6 @@ public interface IStoreBrandDao {
             " join Bas_Stock s on s.StockID=b.StockID\n" +
             " where b.ShopCode=#{shopCode}")
     List<StoreBrand> findStoreBrandByShopCode(String shopCode);
-
 
     /**
      * 详情
@@ -45,7 +41,6 @@ public interface IStoreBrandDao {
             "where b.ShopCode=#{shopCode}")
     List<StoreBrand> findByShopID(String shopCode);
 
-
     /**
      * 查询店铺没有的品牌
      *
@@ -54,6 +49,9 @@ public interface IStoreBrandDao {
      */
     @Select("select CardID,CardCode,CardName,FullName,AllowUsed from SD_Mat_Card where CardID Not in (select CardID from SD_Bas_ShopCard  where ShopID=#{shopId})")
     List<SD_Mat_Card> findOtherCardCodes(String shopId);
+
+
+
 
 
     /**
