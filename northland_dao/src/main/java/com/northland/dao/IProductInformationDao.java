@@ -1,6 +1,7 @@
 package com.northland.dao;
 
 import com.northland.domain.ProductInformation;
+import com.northland.domain.ProductInformation_ExCEL;
 import com.northland.domain.SysLog;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -56,4 +57,6 @@ public interface IProductInformationDao {
     @Select("select * from VWBC_ZN_Planned_Cost_For_Web order by saleDate")
     List<ProductInformation> findAll();
 
+    @Select("select * from VWBC_ZN_Planned_Cost_For_Web order by saleDate")
+    List<ProductInformation_ExCEL> findExcel();
 }

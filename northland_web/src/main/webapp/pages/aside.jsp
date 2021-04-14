@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<style type="text/css">
+	aside {
+       width: 50px;
+		height: 119%;
+	}
+
+</style>
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
@@ -19,7 +26,7 @@
 		</div>
 
 		<!-- sidebar menu: : style can be found in sidebar.less -->
-		<ul class="sidebar-menu">
+		<ul class="sidebar-menu" style="height: 100%">
 			<li class="header">菜单</li>
 			<li id="admin-index"><a
 				href="${pageContext.request.contextPath}/pages/main.jsp"><i
@@ -86,6 +93,13 @@
 						<li id="system-setting"><a
 								href="${pageContext.request.contextPath}/pages/productInformation.jsp"> <i
 								class="fa fa-circle-o"></i> 货品信息管理
+						</a>
+						</li>
+					</security:authorize>
+					<security:authorize access="hasAnyRole('ProductInformation','ADMIN')">
+						<li id="system-setting"><a
+								href="${pageContext.request.contextPath}/pages/test.jsp"> <i
+								class="fa fa-circle-o"></i> 测试
 						</a>
 						</li>
 					</security:authorize>

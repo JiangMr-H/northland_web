@@ -2,6 +2,7 @@ package com.northland.service;
 
 
 import com.northland.domain.ProductInformation;
+import com.northland.domain.ProductInformation_ExCEL;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface IProductInformationService {
                                      String styleCode, String materialShortName);*/
 
     List<ProductInformation> findAll(int page,int size) throws Exception;
+
+    List<ProductInformation_ExCEL> findExcel();
 }

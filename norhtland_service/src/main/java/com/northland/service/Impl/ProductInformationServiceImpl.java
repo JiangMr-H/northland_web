@@ -3,6 +3,7 @@ package com.northland.service.Impl;
 import com.github.pagehelper.PageHelper;
 import com.northland.dao.IProductInformationDao;
 import com.northland.domain.ProductInformation;
+import com.northland.domain.ProductInformation_ExCEL;
 import com.northland.service.IProductInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,11 @@ public class ProductInformationServiceImpl implements IProductInformationService
     public List<ProductInformation> findAll(int page,int size) {
           PageHelper.startPage(page,size);
          return iProductInformationDao.findAll();
+    }
+
+    @Override
+    public List<ProductInformation_ExCEL> findExcel() {
+        return iProductInformationDao.findExcel();
     }
 
   /*  @Override
