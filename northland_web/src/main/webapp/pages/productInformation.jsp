@@ -14,20 +14,10 @@
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
             name="viewport">
 
-    <link href="../style/select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-    <link
-            href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <script
-            src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>
-    <script
-            src="${pageContext.request.contextPath}/style/select/dist/css/bootstrap-select.css"></script>
-    <script
-            src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script
-            src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script
-            src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>
 
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet"
@@ -68,8 +58,20 @@
           href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+
+<%--   <link href="../style/select/dist/css/bootstrap-select.min.css" rel="stylesheet" />--%>
+    <%--<link
+            href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>--%>
+  <%--  <script
+            src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>--%>
+<%--    <script
+            src="${pageContext.request.contextPath}/style/select/dist/css/bootstrap-select.css"></script>--%>
+    <script
+            src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script
+            src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
+   <%-- <script
+            src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>--%>
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -101,49 +103,26 @@
                 <!-- 数据表格 -->
                 <div class="table-box">
                     <!--工具栏-->
-                    <form action="${pageContext.request.contextPath}/ProductInformation/getAll.do" method="post">
+                    <form action="${pageContext.request.contextPath}/ProductInformation/getAll.do?SeriesName=${SeriesName}&StyleCode=${StyleCode}
+                                    &MaterialShortName=${MaterialShortName}&brand=${brand}&yearNo=${yearNo}&seasonName=${seasonName}&sexName=${sexName}
+                                    &selectpicker=${selectpicker}" method="post">
                         <div class="pull-left text-center ">
                             <div style="width: 80px;margin-top: 5px;float: left; padding-left: 20px;">系列：</div>
-                            <input type="text" class="form-control" name="billNo" id="SeriesName"
-                                   placeholder="系列" style="width: 180px; height: 30px; float: left;font-size: 12px;" value="">
+                            <input type="text" class="form-control" name="SeriesName" id="SeriesName"
+                                   placeholder="系列" style="width: 160px; height: 30px; float: left;font-size: 12px;">
 
                             <div style="width: 80px;margin-top: 5px;float: left; padding-left: 20px;">款号：</div>
-                            <input type="text" class="form-control" name="billNo" id="StyleCode"
-                                   placeholder="款号" style="width: 180px; height: 30px; float: left; font-size: 12px;" value="">
+                            <input type="text" class="form-control" name="StyleCode" id="StyleCode"
+                                   placeholder="款号" style="width: 160px; height: 30px; float: left; font-size: 12px;">
 
                             <div style="width: 80px;margin-top: 5px;float: left; margin-left: 20px">货品简称：</div>
-                            <input type="text" class="form-control" name="billNo" id="MaterialShortName"
-                                   placeholder="货品简称" style="width: 180px; height: 30px; float: left; font-size: 12px;" value="">
-                            <br/>
+                            <input type="text" class="form-control" name="MaterialShortName" id="MaterialShortName"
+                                   placeholder="货品简称" style="width: 160px; height: 30px; float: left; font-size: 12px;" value="">
+
                             <div style="width: 80px;margin-top: 5px;float: left;padding-left: 20px">品牌：</div>
-
-                            <select class="selectpicker" multiple data-live-search="true" data-selected-text-format="count > 3">
-                                <option></option>
-                                <option>LOWA</option>
-                                <option>ALPINA</option>
-                                <option>KJUS</option>
-                                <option>ZANIER</option>
-                                <option>NORTHLAND</option>
-                                <option>LIDAKIS</option>
-                                <option>ACTIONFOX</option>
-                                <option>POC</option>
-                                <option>HALTI</option>
-                                <option>特卖</option>
-                                <option>LEKI滑雪</option>
-                                <option>TRECKO</option>
-                                <option>VAUHTI</option>
-                                <option>VIAGPRO</option>
-                                <option>LEVEL</option>
-                                <option>NATURE URBAN</option>
-                                <option>OTHER</option>
-                                <option>LEKI徒步</option>
-                                <option>HEAD</option>
-                                <option>NORTHLAND.KIDS</option>
-                            </select>
-
-                          <%--  <select type="checkbox" class="form-control select2" multiple="multiple"
-                                    style="width: 180px; height: 30px; float: left; font-size: 12px;" name="brand">
-                                <option></option>
+                            <select id="brand" class="selectpicker" multiple onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0"
+                                    style="width: 160px; height: 30px; float: left; font-size: 12px;" name="brand" data-actions-box="true"
+                                    data-selected-text-format="count > 3">
                                 <option>LOWA</option>
                                 <option>ALPINA</option>
                                 <option>KJUS</option>
@@ -166,18 +145,32 @@
                                 <option>NORTHLAND.KIDS</option>
                             </select>
                             <br/>
-                            <div style="width: 80px;margin: 10px;float: left; padding-left: 15px;margin-top: 20px">年份：</div>
-                            <select class="form-control"
-                                    style="width: 120px; height: 30px; float: left;font-size: 12px; padding-right: 30px;margin-top: 15px" id="" name="">
-                                <option></option>
-                                <option>非滚动</option>
-                                <option>滚动</option>
+                           <%-- <div style="width: 80px;margin: 10px;float: left; padding-left: 15px;margin-top: 20px">年份：</div>--%>
+                            <select id="yearNo" name="yearNo" class="selectpicker" multiple style="margin: 20px" multiple title="年份" data-actions-box="true">
+                                <option>2004</option>
+                                <option>2010</option>
+                                <option>2007</option>
+                                <option>2021</option>
+                                <option>2013</option>
+                                <option>2008</option>
+                                <option>2002</option>
+                                <option>2016</option>
+                                <option>2005</option>
+                                <option>2019</option>
+                                <option>2020</option>
+                                <option>2014</option>
+                                <option>2003</option>
+                                <option>2011</option>
+                                <option>2017</option>
+                                <option>2006</option>
+                                <option>2012</option>
+                                <option>2018</option>
+                                <option>2009</option>
+                                <option>2015</option>
                             </select>
-
-                            <div style="width: 80px;margin: 10px;float: left;padding-left: 15px;margin-top: 20px">季节：</div>
-                            <select class="form-control"
-                                    style="width: 120px; height: 30px; float: left;font-size: 12px; padding-right: 30px;margin-top: 15px" id="" name="">
-                                <option></option>
+                          <%-- <div style="width: 80px;margin: 10px;float: left;padding-left: 15px;margin-top: 20px">季节：</div>--%>
+                            <select id="seasonName" name="seasonName" class="selectpicker" multiple  title="季节" data-selected-text-format="count > 3" data-actions-box="true"
+                                    style="width: 120px; height: 30px; float: left;font-size: 12px; padding-right: 30px;margin-top: 15px">
                                 <option>Q1</option>
                                 <option>Q2</option>
                                 <option>Q3</option>
@@ -185,10 +178,9 @@
                                 <option>秋冬</option>
                             </select>
 
-                            <div style="width: 80px;margin: 10px;float: left;padding-left: 30px;margin-top: 20px">性别：</div>
-                            <select class="form-control"
-                                    style="width: 120px; height: 30px; float: left;font-size: 12px; padding-right: 30px;margin-top: 15px" id="" name="">
-                                <option></option>
+                         <%--   <div style="width: 80px;margin: 10px;float: left;padding-left: 30px;margin-top: 20px">性别：</div>--%>
+                            <select id="sexName" name="sexName" class="selectpicker" multiple title="性别" data-selected-text-format="count > 3" data-actions-box="true"
+                                    style="width: 120px; height: 30px; float: left;font-size: 12px; padding-right: 30px;margin-top: 15px" >
                                 <option>男子</option>
                                 <option>女童</option>
                                 <option>男</option>
@@ -200,19 +192,18 @@
                                 <option>中性</option>
                             </select>
 
-                            <div style="width: 80px;float: left;padding-left: 25px;margin-top: 20px">滚动：</div>
-                            <select class="form-control"
-                                    style="width: 120px; height: 30px; float: left;font-size: 12px; margin-right: 25px;margin-top: 15px" id="" name="">
-                                <option></option>
+                         <%--   <div style="width: 80px;float: left;padding-left: 25px;margin-top: 20px">滚动：</div>--%>
+                            <select class="selectpicker" multiple title="滚动" data-actions-box="true"
+                                    style="width: 120px; height: 30px; float: left;font-size: 12px; margin-right: 25px;margin-top: 15px" id="commoditylevelname" name="commoditylevelname">
                                 <option>非滚动</option>
                                 <option>滚动</option>
-                            </select>--%>
+                            </select>
 
                         </div>
                         <div class="pull-right">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="submit" class="btn btn-default" title="查询" data-toggle="modal"
+                                    <button type="submit" class="btn bg-olive btn-xs" title="查询" data-toggle="modal" onclick="fun()"
                                             data-target="#exampleModal" data-whatever="@mdo">
                                         <i class="fa fa-file-o"></i> 查询
                                     </button>
@@ -231,9 +222,6 @@
                                class="table table-bordered table-striped table-hover dataTable text-nowrap table-responsive">
                             <thead>
                             <tr>
-                                <th class="" style="padding-right: 0px;"><input
-                                        id="selall" type="checkbox" class="icheckbox_square-blue">
-                                </th>
                                 <th class="text-center">MaterialCode</th>
                                 <th class="text-center">货品全称</th>
                                 <th class="text-center">货号</th>
@@ -268,7 +256,6 @@
                             <tbody>
                             <c:forEach items="${pageInfo.list}" var="productInformation">
                                 <tr>
-                                    <td><input name="ids" type="checkbox"></td>
                                     <td>${productInformation.materialCode1 }</td>
                                     <td>${productInformation.materialName }</td>
                                     <td>${productInformation.materialCode2 }</td>
@@ -334,9 +321,6 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/ProductInformation/findPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a>
                         </li>
-                        <%--<c:forEach begin="${pageNum+1}" end="${pageInfo.pageNum+1}" var="pageNum">
-                            <li><a href="${pageContext.request.contextPath}/ProductInformation/getAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
-                        </c:forEach>--%>
                         <li>
                             <a href="${pageContext.request.contextPath}/ProductInformation/findPage.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a>
                         </li>
@@ -362,7 +346,65 @@
 </footer>
 <!-- 底部侧栏 /-->
 
+<script type="text/JavaScript">
+    function fun(){
 
+        var strBrand=[];
+        var objBrand = document.getElementById("brand");
+        for(var i=0;i<objBrand.options.length;i++){
+            if(objBrand.options[i].selected){
+                strBrand.push(objBrand.options[i].value);// 收集选中项
+            }
+        }
+        $("#brand").val(strBrand);
+        console.log(strBrand)
+
+        var strYearNo=[];
+        var objYearNo = document.getElementById("yearNo");
+        for(var i=0;i<objYearNo.options.length;i++){
+            if(objYearNo.options[i].selected){
+                strYearNo.push(objYearNo.options[i].value);// 收集选中项
+            }
+        }
+        $("#yearNo").val(strYearNo);
+        console.log(strYearNo)
+
+
+        var strSeasonName=[];
+        var objSeasonName = document.getElementById("seasonName");
+        for(var i=0;i<objSeasonName.options.length;i++){
+            if(objSeasonName.options[i].selected){
+                strSeasonName.push(objSeasonName.options[i].value);// 收集选中项
+            }
+        }
+        $("#seasonName").val(strSeasonName);
+        console.log(strSeasonName)
+
+
+        var strSexName=[];
+        var objSexName = document.getElementById("sexName");
+        for(var i=0;i<objSexName.options.length;i++){
+            if(objSexName.options[i].selected){
+                strSexName.push(objSexName.options[i].value);// 收集选中项
+            }
+        }
+        $("#sexName").val(strSexName);
+        console.log(strSexName)
+
+
+        var strcommoditylevelname=[];
+        var objstrcommoditylevelname = document.getElementById("commoditylevelname");
+        for(var i=0;i<objstrcommoditylevelname.options.length;i++){
+            if(objstrcommoditylevelname.options[i].selected){
+                strcommoditylevelname.push(objstrcommoditylevelname.options[i].value);// 收集选中项
+            }
+        }
+        $("#commoditylevelname").val(strcommoditylevelname);
+        console.log(strcommoditylevelname)
+
+
+    }
+</script>
 <script
         src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script
@@ -370,8 +412,6 @@
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
-<script
-        src="${pageContext.request.contextPath}/plugins/bootstrap-multiselect-master/dist/js/bootstrap-multiselect.min.js"></script>
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script
@@ -452,6 +492,22 @@
         src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<link href="../style/select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<link
+        href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<%--<script
+        src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>--%>
+
+
+<script
+        src="${pageContext.request.contextPath}/style/select/dist/css/bootstrap-select.css"></script>
+<script
+        src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script
+        src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>
+<link rel="stylesheet"
+      href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
+
 <script>
     function changePageSize() {
         //获取下拉框的值
@@ -491,7 +547,7 @@
             increaseArea: '20%'
         });
         // 全选操作
-        $("#selall").click(function () {
+        $(".selall").click(function () {
             var clicks = $(this).is(':checked');
             if (!clicks) {
                 $("#dataList td input[type='checkbox']").iCheck("uncheck");
@@ -501,6 +557,20 @@
             $(this).data("clicks", !clicks);
         });
     });
+
+    $('.selectpicker').selectpicker({
+        'selectedText':'cat',
+        'noneSelectedText':'请选择',
+        'deselectAllText':'全不选',
+        'selectAllText': '全选',
+    });
+    $('.year').selectpicker({
+        'selectedText':'cat',
+        'noneSelectedText':'请选择',
+        'deselectAllText':'全不选',
+        'selectAllText': '全选',
+    })
+
 </script>
 </body>
 

@@ -13,11 +13,11 @@ public interface IProductInformationService {
     List<ProductInformation> findYearNo();
     List<ProductInformation> findSeasonName();
     List<ProductInformation> findSexName();
-/*    List<ProductInformation> findAll(String cardName, String yearNo, String seasonName,
-                                     String sexName, String commodityLevelName, String seriesName,
-                                     String styleCode, String materialShortName);*/
 
     List<ProductInformation> findAll(int page,int size) throws Exception;
 
-    List<ProductInformation_ExCEL> findExcel();
+    List<ProductInformation> findExcel() throws Exception;
+
+    List<ProductInformation> findByCondition(int page,int size,String SeriesName,String MaterialShortName,String StyleCode,List brand,
+                                             List yearNo,List sexName,List seasonName,List commoditylevelname);
 }

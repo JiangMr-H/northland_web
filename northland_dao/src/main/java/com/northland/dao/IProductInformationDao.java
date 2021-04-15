@@ -5,6 +5,7 @@ import com.northland.domain.ProductInformation_ExCEL;
 import com.northland.domain.SysLog;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -58,5 +59,21 @@ public interface IProductInformationDao {
     List<ProductInformation> findAll();
 
     @Select("select * from VWBC_ZN_Planned_Cost_For_Web order by saleDate")
-    List<ProductInformation_ExCEL> findExcel();
+    List<ProductInformation> findExcel();
+
+
+    @Select("select * from VWBC_ZN_Planned_Cost_For_Web where 1=1 " +
+            "<if test='seriesName != null and seriesName != '''> and seriesName like '%${seriesName}%' </if>" +
+            "<if test='MaterialShortName != null and MaterialShortName != '''> and MaterialShortName like '%${MaterialShortName}%' </if> " +
+            "<if test='StyleCode != null and StyleCode != '''> and StyleCode like '%${StyleCode}%' </if> " +
+            "<if test='brand != null and brand != '''> and brand in (${brand}) </if>" +
+            "<if test='YearNo != null and YearNo != '''> and YearNo in (${YearNo}) </if> " +
+            "<if test='SexName != null and SexName != '''> and SexName in (${SexName}) </if>" +
+            "<if test='SeasonName != null and SeasonName != '''> and SeasonName in (${SeasonName}) </if> " +
+            "<if test='commodityLevelName != null and commodityLevelName != '''> and commodityLevelName='%${commodityLevelName}%' </if>  order by saleDate")
+    List<ProductInformation> findByCondition(@Param("seriesName") String seriesName,@Param("MaterialShortName") String materialShortName,
+                                             @Param("StyleCode") String styleCode,@Param("brand") List brand,@Param("YearNo") List yearNo,
+                                             @Param("SexName") List sexName,@Param("SeasonName") List seasonName,@Param("commodityLevelName") List commoditylevelname);
+
+
 }

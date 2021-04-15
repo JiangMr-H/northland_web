@@ -25,8 +25,7 @@
         src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>
 <body>
 
-<select class="selectpicker" multiple data-live-search="true" data-selected-text-format="count > 3"
-        style="position: absolute;z-index: 1;" onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0">
+<select class="selectpicker" multiple data-live-search="true" data-selected-text-format="count > 3">
     <option></option>
     <option>LOWA</option>
     <option>ALPINA</option>
