@@ -49,8 +49,7 @@ public class ProductInformationServiceImpl implements IProductInformationService
 
 
     @Override
-    public List<ProductInformation> findByCondition(int page, int size, String SeriesName, String MaterialShortName, String StyleCode, List brand, List yearNo, List sexName, List seasonName, List commoditylevelname) {
-        PageHelper.startPage(page,size);
+    public List<ProductInformation> findByCondition( String SeriesName, String MaterialShortName, String StyleCode, List brand, List yearNo, List sexName, List seasonName, List commoditylevelname) {
         return iProductInformationDao.findByCondition( SeriesName,  MaterialShortName,  StyleCode,  brand,  yearNo,  sexName,  seasonName,  commoditylevelname);
     }
 

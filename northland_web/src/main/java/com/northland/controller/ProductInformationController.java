@@ -37,7 +37,7 @@ public class ProductInformationController {
     @Autowired
     IProductInformationDao iProductInformationDao;
 
-
+    public static List<ProductInformation> listForExcel = new ArrayList<>();
 
     /**
      * @return
@@ -122,14 +122,11 @@ public class ProductInformationController {
      * 条件查询  TODO
      * 记录按条件查询后的所有数据，
      * 用于Excel导出
-     * @param page
-     * @param size
      * @return
      * @throws Exception
      */
     @RequestMapping("/getAll.do")
-    public ModelAndView findBy(@RequestParam(name = "page", required = true, defaultValue = "1") int page, @RequestParam(name = "size", required = true, defaultValue = "10") int size,
-                                @RequestParam(name = "SeriesName", required = false)String SeriesName,@RequestParam(name = "StyleCode", required = false) String StyleCode,
+    public ModelAndView findBy(@RequestParam(name = "SeriesName", required = false)String SeriesName,@RequestParam(name = "StyleCode", required = false) String StyleCode,
                                  @RequestParam(name = "MaterialShortName", required = false) String MaterialShortName,@RequestParam(name = "brand", required = false)List brand,
                                   @RequestParam(name = "yearNo", required = false) List yearNo,@RequestParam(name = "seasonName", required = false) List seasonName,
                                    @RequestParam(name = "sexName", required = false) List sexName,@RequestParam(name = "commoditylevelname", required = false) List commoditylevelname) throws Exception {
@@ -165,8 +162,9 @@ public class ProductInformationController {
             e.printStackTrace();
         }
 
-        List<ProductInformation> allList = iProductInformationService.findByCondition(page, size,SeriesName,MaterialShortName,StyleCode,brand,
+        List<ProductInformation> allList = iProductInformationService.findByCondition(SeriesName,MaterialShortName,StyleCode,brand,
                 yearNo,sexName,seasonName,commoditylevelname);
+            listForExcel=allList;
         PageInfo pageInfo = new PageInfo(allList);
         mv.addObject("pageInfo", pageInfo);
         mv.setViewName("productInformation");
@@ -186,7 +184,14 @@ public class ProductInformationController {
         sheet.setAutoWidth(Boolean.TRUE);
         // 第一个 sheet 名称
         sheet.setSheetName("货品资料");
-        writer.write(iProductInformationService.findExcel(), sheet);
+
+
+
+        if(listForExcel.toArray().length<0){
+            writer.write(iProductInformationService.findExcel(), sheet);
+        }else {
+            writer.write(listForExcel, sheet);
+        }
         //通知浏览器以附件的形式下载处理，设置返回头要注意文件名有中文
         response.setHeader("Content-disposition", "attachment;filename=" + new String( fileName.getBytes("gb2312"), "ISO8859-1" ) + ".xlsx");
         writer.finish();
