@@ -92,14 +92,14 @@
     <!-- 内容头部 /-->
 
     <!-- 正文区域 -->
-    <section class="content">
+    <section class="content" style="height: 800px">
 
         <!-- .box-body -->
-        <div class="box box-primary">
+        <div class="box box-primary"  style="height: 100%">
             <div class="box-header with-border">
                 <h3 class="box-title">列表</h3>
             </div>
-            <div class="box-body">
+            <div class="box-body" style="height: 100%" >
                 <!-- 数据表格 -->
                 <div class="table-box">
                     <!--工具栏-->
@@ -216,7 +216,7 @@
 
 
                     <!--工具栏/-->
-                    <div style="width:100%; height:300px; overflow:scroll;">
+                    <div style="width:100%; height: 600px; overflow:scroll;">
                         <!--数据列表-->
                         <table id="dataList"
                                class="table table-bordered table-striped table-hover dataTable text-nowrap table-responsive">
@@ -299,7 +299,7 @@
             </div>
             <!-- /.box-body -->
             <!-- .box-footer-->
-            <div class="box-footer">
+            <%--<div class="box-footer">
                 <div class="pagination pull-left">
                     <div class="form-group form-inline">
                         总共${pageInfo.pages}页， 每页
@@ -329,7 +329,7 @@
                                aria-label="Next">尾页</a></li>
                     </ul>
                 </div>
-            </div>
+            </div>--%>
             <!-- /.box-footer-->
         </div>
     </section>

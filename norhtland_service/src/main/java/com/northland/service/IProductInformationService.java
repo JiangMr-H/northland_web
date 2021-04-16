@@ -18,6 +18,6 @@ public interface IProductInformationService {
 
     List<ProductInformation> findExcel() throws Exception;
 
-    List<ProductInformation> findByCondition(int page,int size,String SeriesName,String MaterialShortName,String StyleCode,List brand,
+    List<ProductInformation> findByCondition(String SeriesName,String MaterialShortName,String StyleCode,List brand,
                                              List yearNo,List sexName,List seasonName,List commoditylevelname);
 }

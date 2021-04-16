@@ -96,13 +96,6 @@
 						</a>
 						</li>
 					</security:authorize>
-					<security:authorize access="hasAnyRole('ProductInformation','ADMIN')">
-						<li id="system-setting"><a
-								href="${pageContext.request.contextPath}/pages/test.jsp"> <i
-								class="fa fa-circle-o"></i> 测试
-						</a>
-						</li>
-					</security:authorize>
 				</ul>
 			</li>
 
