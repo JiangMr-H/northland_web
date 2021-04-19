@@ -16,20 +16,20 @@
 
 
 
-    <link rel="stylesheet"
+   <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet"
+<%--    <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/morris/morris.css">
-    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/plugins/morris/morris.css">--%>
+  <%--  <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
+          href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
     <link rel="stylesheet"
@@ -103,9 +103,10 @@
                 <!-- 数据表格 -->
                 <div class="table-box">
                     <!--工具栏-->
-                    <form action="${pageContext.request.contextPath}/ProductInformation/getAll.do?SeriesName=${SeriesName}&StyleCode=${StyleCode}
+                  <%--  <form action="${pageContext.request.contextPath}/ProductInformation/getAll.do?SeriesName=${SeriesName}&StyleCode=${StyleCode}
                                     &MaterialShortName=${MaterialShortName}&brand=${brand}&yearNo=${yearNo}&seasonName=${seasonName}&sexName=${sexName}
-                                    &selectpicker=${selectpicker}" method="post">
+                                    &selectpicker=${selectpicker}" method="post">--%>
+                    <form name="form">
                         <div class="pull-left text-center ">
                             <div style="width: 80px;margin-top: 5px;float: left; padding-left: 20px;">系列：</div>
                             <input type="text" class="form-control" name="SeriesName" id="SeriesName"
@@ -202,8 +203,8 @@
                         </div>
                         <div class="pull-right">
                             <div class="form-group form-inline">
-                                <div class="btn-group">
-                                    <button type="submit" class="btn bg-olive btn-xs" title="查询" data-toggle="modal" onclick="fun()"
+                                <div class="btn-group">                                                               <%--onclick="fun()--%>
+                                    <button type="submit" class="btn bg-olive btn-xs" title="查询" data-toggle="modal" onclick="find()"
                                             data-target="#exampleModal" data-whatever="@mdo">
                                         <i class="fa fa-file-o"></i> 查询
                                     </button>
@@ -346,6 +347,103 @@
 </footer>
 <!-- 底部侧栏 /-->
 
+<script type="text/javascript">
+    function find()
+    {
+        var strBrand=[];
+        var objBrand = document.getElementById("brand");
+        for(var i=0;i<objBrand.options.length;i++){
+            if(objBrand.options[i].selected){
+                strBrand.push(objBrand.options[i].value);// 收集选中项
+            }
+        }
+        $("#brand").val(strBrand);
+        console.log(strBrand)
+
+        var strYearNo=[];
+        var objYearNo = document.getElementById("yearNo");
+        for(var i=0;i<objYearNo.options.length;i++){
+            if(objYearNo.options[i].selected){
+                strYearNo.push(objYearNo.options[i].value);// 收集选中项
+            }
+        }
+        $("#yearNo").val(strYearNo);
+        console.log(strYearNo)
+
+
+        var strSeasonName=[];
+        var objSeasonName = document.getElementById("seasonName");
+        for(var i=0;i<objSeasonName.options.length;i++){
+            if(objSeasonName.options[i].selected){
+                strSeasonName.push(objSeasonName.options[i].value);// 收集选中项
+            }
+        }
+        $("#seasonName").val(strSeasonName);
+        console.log(strSeasonName)
+
+
+        var strSexName=[];
+        var objSexName = document.getElementById("sexName");
+        for(var i=0;i<objSexName.options.length;i++){
+            if(objSexName.options[i].selected){
+                strSexName.push(objSexName.options[i].value);// 收集选中项
+            }
+        }
+        $("#sexName").val(strSexName);
+        console.log(strSexName)
+
+
+        var strcommoditylevelname=[];
+        var objstrcommoditylevelname = document.getElementById("commoditylevelname");
+        for(var i=0;i<objstrcommoditylevelname.options.length;i++){
+            if(objstrcommoditylevelname.options[i].selected){
+                strcommoditylevelname.push(objstrcommoditylevelname.options[i].value);// 收集选中项
+            }
+        }
+        $("#commoditylevelname").val(strcommoditylevelname);
+        console.log(strcommoditylevelname)
+
+        var SeriesName = document.getElementById("SeriesName");
+        var StyleCode = document.getElementById("StyleCode");
+        var MaterialShortName = document.getElementById("MaterialShortName");
+
+        $.ajax
+        ({
+            url: "${pageContext.request.contextPath}/ProductInformation/getAll.do",
+            dataType: "json",
+            type: "POST",
+            data: {
+                'SeriesName': $("#SeriesName").val(),
+                'StyleCode': $("#StyleCode").val(),
+                'MaterialShortName': $("#MaterialShortName").val(),
+                'brand': JSON.stringify(strBrand),
+                'yearNo': JSON.stringify(strYearNo),
+                'seasonName': JSON.stringify(strSeasonName),
+                'sexName': JSON.stringify(strSexName),
+                'commoditylevelname': JSON.stringify(strcommoditylevelname)
+            },
+            success:function(res){
+                alert('success');
+
+                // 用一个变量接收返回来的list集合（vendorList）
+                var operatorData=res.vendorList;
+//循环这个接收集合的变量
+                for(var i=0;i< operatorData.length;i++){
+//将需要在输入框展示的值 拼接出来，并用一个变量接收
+                    var opt='<option value="'+operatorData[i].id+'" >'+operatorData[i].vendorname+'</option>'
+//将这个变量插入在id为operator的结尾处
+                    $("#dataList").append(opt);
+                }
+
+                console.log(res);  //在console中查看数据
+            },
+            error:function(){
+                alert('failed!');
+            },
+        });
+    }
+</script>
+
 <script type="text/JavaScript">
     function fun(){
 
@@ -414,7 +512,7 @@
 </script>
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script
+<%--<script
         src="${pageContext.request.contextPath}/plugins/raphael/raphael-min.js"></script>
 <script
         src="${pageContext.request.contextPath}/plugins/morris/morris.min.js"></script>
@@ -430,8 +528,7 @@
         src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
 <script
         src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-<script
-        src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
+
 <script
         src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script
@@ -439,20 +536,21 @@
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script
-        src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script
+        src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>--%>
+<%--<script
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script
-        src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+        src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>--%>
 <script
         src="${pageContext.request.contextPath}/plugins/adminLTE/js/app.min.js"></script>
-<script
+<%--<script
         src="${pageContext.request.contextPath}/plugins/treeTable/jquery.treetable.js"></script>
 <script
         src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
 <script
-        src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<script
+        src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>--%>
+
+<%--<script
         src="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
@@ -489,18 +587,19 @@
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script
-        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-<script
-        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>--%>
+<%--<script--%>
+<%--        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>--%>
 <link href="../style/select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 <link
         href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
 <%--<script
         src="${pageContext.request.contextPath}/style/select/js/bootstrap-select.js"></script>--%>
 
 
-<script
-        src="${pageContext.request.contextPath}/style/select/dist/css/bootstrap-select.css"></script>
+<%--<script
+        src="${pageContext.request.contextPath}/style/select/dist/css/bootstrap-select.css"></script>--%>
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script
@@ -517,7 +616,7 @@
             + pageSize;
     }
 
-    $(document).ready(function () {
+   /*  $(document).ready(function () {
         // 选择框
         $(".select2").select2();
 
@@ -525,7 +624,7 @@
         $(".textarea").wysihtml5({
             locale: 'zh-CN'
         });
-    });
+    });*/
 
     // 设置激活菜单
     function setSidebarActive(tagUri) {
@@ -542,12 +641,12 @@
         setSidebarActive("admin-datalist");
 
         // 列表按钮
-        $("#dataList td input[type='checkbox']").iCheck({
+      /*  $("#dataList td input[type='checkbox']").iCheck({
             checkboxClass: 'icheckbox_square-blue',
             increaseArea: '20%'
-        });
+        });*/
         // 全选操作
-        $(".selall").click(function () {
+        /*$(".selall").click(function () {
             var clicks = $(this).is(':checked');
             if (!clicks) {
                 $("#dataList td input[type='checkbox']").iCheck("uncheck");
@@ -555,7 +654,7 @@
                 $("#dataList td input[type='checkbox']").iCheck("check");
             }
             $(this).data("clicks", !clicks);
-        });
+        });*/
     });
 
     $('.selectpicker').selectpicker({

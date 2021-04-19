@@ -3,6 +3,9 @@ package com.northland.controller;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.northland.dao.IProductInformationDao;
 import com.northland.domain.ProductInformation;
@@ -11,14 +14,12 @@ import com.northland.service.IProductInformationService;
 import com.northland.utils.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
 
 @RequestMapping("ProductInformation")
 @Controller
@@ -125,12 +127,12 @@ public class ProductInformationController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/getAll.do")
-    public ModelAndView findBy(@RequestParam(name = "SeriesName", required = false)String SeriesName,@RequestParam(name = "StyleCode", required = false) String StyleCode,
-                                 @RequestParam(name = "MaterialShortName", required = false) String MaterialShortName,@RequestParam(name = "brand", required = false)List brand,
-                                  @RequestParam(name = "yearNo", required = false) List yearNo,@RequestParam(name = "seasonName", required = false) List seasonName,
-                                   @RequestParam(name = "sexName", required = false) List sexName,@RequestParam(name = "commoditylevelname", required = false) List commoditylevelname) throws Exception {
-        ModelAndView mv = new ModelAndView();
+    @RequestMapping(value = "/getAll.do",method = RequestMethod.POST)
+    @ResponseBody
+    public String findBy(@RequestParam(name = "SeriesName", required = false)String SeriesName, @RequestParam(name = "StyleCode", required = false) String StyleCode,
+                                           @RequestParam(name = "MaterialShortName", required = false) String MaterialShortName, @RequestParam(name = "brand", required = false)List brand,
+                                           @RequestParam(name = "yearNo", required = false) List yearNo, @RequestParam(name = "seasonName", required = false) List seasonName,
+                                           @RequestParam(name = "sexName", required = false) List sexName, @RequestParam(name = "commoditylevelname", required = false) List commoditylevelname, HttpServletResponse response) throws Exception {
 
         try {
             if (SeriesName != null) {
@@ -165,10 +167,17 @@ public class ProductInformationController {
         List<ProductInformation> allList = iProductInformationService.findByCondition(SeriesName,MaterialShortName,StyleCode,brand,
                 yearNo,sexName,seasonName,commoditylevelname);
             listForExcel=allList;
-        PageInfo pageInfo = new PageInfo(allList);
-        mv.addObject("pageInfo", pageInfo);
-        mv.setViewName("productInformation");
-        return mv;
+        ObjectMapper mapper = new ObjectMapper();
+        //使用jackson将json转为List<User>
+        JavaType jt = mapper.getTypeFactory().constructRawCollectionLikeType(ArrayList.class);
+        List brandList = mapper.readValue(brand, jt);
+
+        String str= JSON.toJSON(allList).toString();
+        response.reset();
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(str);
+        System.out.println("*********** -----"+allList.size());
+        return str;
     }
 
 

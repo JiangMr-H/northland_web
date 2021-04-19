@@ -74,15 +74,5 @@ public interface IProductInformationDao {
             List<ProductInformation> findByCondition(@Param("seriesName") String seriesName,@Param("MaterialShortName") String materialShortName,
                     @Param("StyleCode") String styleCode,@Param("brand") List brand,@Param("YearNo") List yearNo,
                     @Param("SexName") List sexName,@Param("SeasonName") List seasonName,@Param("commodityLevelName") List commoditylevelname);
-          /*  "<if test='MaterialShortName != null'> and MaterialShortName like '%${MaterialShortName}%' </if> ",
-            "<if test='StyleCode != null '> and StyleCode like '%${StyleCode}%' </if> " ,
-            "<if test='brand != null'> and brand in (${brand}) </if>",
-            "<if test='YearNo != null '> and YearNo in (${YearNo}) </if> " ,
-            "<if test='SexName != null'> and SexName in (${SexName}) </if>" ,
-            "<if test='SeasonName != null '> and SeasonName in (${SeasonName}) </if> ",
-            "<if test='commodityLevelName != null'> and commodityLevelName='%${commodityLevelName}%' </if>  order by saleDay " ,*/
-
-
-
 
 }
