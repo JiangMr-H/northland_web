@@ -370,7 +370,6 @@
         $("#yearNo").val(strYearNo);
         console.log(strYearNo)
 
-
         var strSeasonName=[];
         var objSeasonName = document.getElementById("seasonName");
         for(var i=0;i<objSeasonName.options.length;i++){
@@ -380,7 +379,6 @@
         }
         $("#seasonName").val(strSeasonName);
         console.log(strSeasonName)
-
 
         var strSexName=[];
         var objSexName = document.getElementById("sexName");
@@ -392,7 +390,6 @@
         $("#sexName").val(strSexName);
         console.log(strSexName)
 
-
         var strcommoditylevelname=[];
         var objstrcommoditylevelname = document.getElementById("commoditylevelname");
         for(var i=0;i<objstrcommoditylevelname.options.length;i++){
@@ -403,10 +400,6 @@
         $("#commoditylevelname").val(strcommoditylevelname);
         console.log(strcommoditylevelname)
 
-        var SeriesName = document.getElementById("SeriesName");
-        var StyleCode = document.getElementById("StyleCode");
-        var MaterialShortName = document.getElementById("MaterialShortName");
-
         $.ajax
         ({
             url: "${pageContext.request.contextPath}/ProductInformation/getAll.do",
@@ -416,17 +409,18 @@
                 'SeriesName': $("#SeriesName").val(),
                 'StyleCode': $("#StyleCode").val(),
                 'MaterialShortName': $("#MaterialShortName").val(),
-                'brand': JSON.stringify(strBrand),
+/*              'brand': JSON.stringify(strBrand),
                 'yearNo': JSON.stringify(strYearNo),
                 'seasonName': JSON.stringify(strSeasonName),
                 'sexName': JSON.stringify(strSexName),
-                'commoditylevelname': JSON.stringify(strcommoditylevelname)
+                'commoditylevelname': JSON.stringify(strcommoditylevelname)*/
             },
-            success:function(res){
+            success:function(data){
+                console.log(data);
                 alert('success');
 
                 // 用一个变量接收返回来的list集合（vendorList）
-                var operatorData=res.vendorList;
+                var operatorData=data.vendorList;
 //循环这个接收集合的变量
                 for(var i=0;i< operatorData.length;i++){
 //将需要在输入框展示的值 拼接出来，并用一个变量接收
