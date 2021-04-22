@@ -1,0 +1,12 @@
+com\northland\domain\ProductInformation_ExCEL.class
+com\northland\domain\Customer_Info.class
+com\northland\domain\BC_JIT_PickMaster.class
+com\northland\domain\Customer_Info_Log.class
+com\northland\domain\ProductInformation.class
+com\northland\domain\SysLog.class
+com\northland\domain\UserInfo.class
+com\northland\domain\Role.class
+com\northland\domain\SD_Mat_Card.class
+com\northland\domain\Permission.class
+com\northland\domain\StoreBrand.class
+com\northland\domain\SD_Inv_MoveReqMaster.class

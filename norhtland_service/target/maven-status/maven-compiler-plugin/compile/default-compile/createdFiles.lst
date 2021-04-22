@@ -1,0 +1,16 @@
+com\northland\service\IBC_JIT_PickMasterService.class
+com\northland\service\Impl\SysLogServiceImpl.class
+com\northland\service\Impl\Customer_Info_ModifiServiceImpl.class
+com\northland\service\Impl\UserServiceImpl.class
+com\northland\service\IRoleService.class
+com\northland\service\IUserService.class
+com\northland\service\Impl\RoleServiceImpl.class
+com\northland\service\IPermissionService.class
+com\northland\service\ISysLogService.class
+com\northland\service\IStoreBrandService.class
+com\northland\service\Impl\PermissionServiceImpl.class
+com\northland\service\IProductInformationService.class
+com\northland\service\Impl\ProductInformationServiceImpl.class
+com\northland\service\Impl\StoreBrandServiceImpl.class
+com\northland\service\Customer_Info_ModifiService.class
+com\northland\service\Impl\BC_JIT_PickMasterServiceImpl.class

@@ -1,0 +1,8 @@
+com\northland\dao\IBC_JIT_PickMasterDao.class
+com\northland\dao\IProductInformationDao.class
+com\northland\dao\IStoreBrandDao.class
+com\northland\dao\ISysLogDao.class
+com\northland\dao\IUserDao.class
+com\northland\dao\IRoleDao.class
+com\northland\dao\ICustomer_Info_ModifiDao.class
+com\northland\dao\IPermissionDao.class

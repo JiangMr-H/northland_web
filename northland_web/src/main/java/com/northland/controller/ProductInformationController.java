@@ -111,13 +111,6 @@ public class ProductInformationController {
         return mv;
     }
 
- /*   @RequestMapping("/ExportExcel.do")
-    @ResponseBody
-    public void ExportExcel(HttpServletResponse res) {
-        String filePath = "D:\\货品资料.xlsx";
-        ExcelUtil.writeWithTemplate(res,filePath,iProductInformationService.findExcel());
-    }*/
-
     /**
      * 条件查询  TODO
      * 记录按条件查询后的所有数据，
@@ -171,9 +164,6 @@ public class ProductInformationController {
         return mv;
     }
 
-
-
-
     @RequestMapping("/ExportExcel.do")
     public void export(HttpServletResponse response,
                        @RequestParam(name = "SeriesName", required = false)String SeriesName,@RequestParam(name = "StyleCode", required = false) String StyleCode,
@@ -189,16 +179,12 @@ public class ProductInformationController {
         sheet.setAutoWidth(Boolean.TRUE);
         // 第一个 sheet 名称
         sheet.setSheetName("货品资料");
-       if(SeriesName=="" && StyleCode=="" && MaterialShortName== "" && brand.size()<=0 && yearNo.size()<=0 && sexName.size()<=0 && seasonName.size()<=0 && commoditylevelname.size()<=0){
-          writer.write(iProductInformationService.findExcel(), sheet);
-       }
-        else{
-        if(listForExcel.toArray().length<1){
-            writer.write(iProductInformationService.findExcel(), sheet);
+          if(listForExcel.toArray().length==0){
+            writer.write(null, sheet);
         }else {
             writer.write(listForExcel, sheet);
+            listForExcel.clear();
         }
-       }
         //通知浏览器以附件的形式下载处理，设置返回头要注意文件名有中文
         response.setHeader("Content-disposition", "attachment;filename=" + new String( fileName.getBytes("gb2312"), "ISO8859-1" ) + ".xlsx");
         writer.finish();
@@ -207,5 +193,22 @@ public class ProductInformationController {
         out.flush();
     }
 
-
+    @RequestMapping("/ExportAllExcel.do")
+    public void export(HttpServletResponse response) throws Exception {
+        ServletOutputStream out = response.getOutputStream();
+        ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX, true);
+        String fileName = "货品资料";
+        Sheet sheet = new Sheet(1, 0,ProductInformation.class);
+        //设置自适应宽度
+        sheet.setAutoWidth(Boolean.TRUE);
+        // 第一个 sheet 名称
+        sheet.setSheetName("货品资料");
+        writer.write(iProductInformationService.findExcel(), sheet);
+        //通知浏览器以附件的形式下载处理，设置返回头要注意文件名有中文
+        response.setHeader("Content-disposition", "attachment;filename=" + new String( fileName.getBytes("gb2312"), "ISO8859-1" ) + ".xlsx");
+        writer.finish();
+        response.setContentType("multipart/form-data");
+        response.setCharacterEncoding("utf-8");
+        out.flush();
+    }
 }
