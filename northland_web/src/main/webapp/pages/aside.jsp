@@ -4,7 +4,7 @@
 <style type="text/css">
 	aside {
        width: 50px;
-		height: 142.5%;
+		height: 119%;
 	}
 
 </style>

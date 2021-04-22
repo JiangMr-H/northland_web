@@ -37,7 +37,7 @@
 
 
     <select id="findByCondition" resultMap="BaseResultMap" resultType="com.northland.domain.ProductInformation">
-        select * from VWBC_ZN_Planned_Cost_For_Web where 1=1
+       <!-- select * from VWBC_ZN_Planned_Cost_For_Web where 1=1
         <set>
             <if test="seriesName != null">
                 and seriesName like #{seriesName}
@@ -65,7 +65,7 @@
             </if>
 
         </set>
-        order by saleDate
+        order by saleDate-->
     </select>
 
 </mapper>

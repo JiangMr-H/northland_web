@@ -53,10 +53,4 @@ public class ProductInformationServiceImpl implements IProductInformationService
         return iProductInformationDao.findByCondition( SeriesName,  MaterialShortName,  StyleCode,  brand,  yearNo,  sexName,  seasonName,  commoditylevelname);
     }
 
-
-  /*  @Override
-    public List<ProductInformation> findAll(String cardName, String yearNo, String seasonName, String sexName, String commodityLevelName, String seriesName, String styleCode, String materialShortName) {
-        return iProductInformationDao.findAll( cardName,  yearNo,  seasonName,  sexName,  commodityLevelName,  seriesName,  styleCode,  materialShortName);
-    }*/
-
 }
