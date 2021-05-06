@@ -1,10 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.northland.dao.IProductInformationDao">
+    <resultMap id="BaseResultMap" type="com.northland.domain.ProductInformation">
+        <result jdbcType="VARCHAR" column="MaterialCode" property="materialCode1"/>
+        <result jdbcType="VARCHAR" column="MaterialName" property="materialName"/>
+        <result jdbcType="VARCHAR" column="MaterialCode" property="materialCode2"/>
+        <result jdbcType="VARCHAR" column="StyleCode" property="styleCode"/>
+        <result jdbcType="VARCHAR" column="MaterialShortName" property="materialShortName"/>
+        <result jdbcType="VARCHAR" column="CardName" property="cardName"/>
+        <result jdbcType="VARCHAR" column="KindName" property="kindName"/>
+        <result jdbcType="VARCHAR" column="SeriesName" property="seriesName"/>
+        <result jdbcType="VARCHAR" column="SubSeries" property="subSeries"/>
+        <result jdbcType="VARCHAR" column="ItemName" property="itemName"/>
+        <result jdbcType="VARCHAR" column="MainProject" property="mainProject"/>
+        <result jdbcType="VARCHAR" column="SubItem" property="subItem"/>
+        <result jdbcType="VARCHAR" column="ModelName" property="modelName"/>
+        <result jdbcType="VARCHAR" column="YearNo" property="yearNo"/>
+        <result jdbcType="VARCHAR" column="SeasonName" property="seasonName"/>
+        <result jdbcType="VARCHAR" column="WholePrice" property="wholePrice"/>
+        <result jdbcType="VARCHAR" column="RetailPrice" property="retailPrice"/>
+        <result jdbcType="VARCHAR" column="CostPrice" property="costPrice"/>
+        <result jdbcType="VARCHAR" column="NowPrice" property="nowPrice"/>
+        <result jdbcType="VARCHAR" column="SexName" property="sexName"/>
+        <result jdbcType="VARCHAR" column="ColorName" property="colorName"/>
+        <result jdbcType="VARCHAR" column="UnitName" property="unitName"/>
+        <result jdbcType="VARCHAR" column="SaleDate" property="saleDate"/>
+        <result jdbcType="VARCHAR" column="ColorName2" property="colorName2"/>
+        <result jdbcType="VARCHAR" column="SizeTypeName" property="sizeTypeName"/>
+        <result jdbcType="VARCHAR" column="SizeSection" property="sizeSection"/>
+        <result jdbcType="VARCHAR" column="commoditylevelname" property="commodityLevelName"/>
+        <result jdbcType="VARCHAR" column="CorrespondingSize" property="correspondingSize"/>
+        <result jdbcType="VARCHAR" column="QuotePrice" property="quotePrice"/>
+    </resultMap>
 
-    <select id="findByCondition"  resultMap="java.util.List" parameterType="">
 
+    <select id="findByCondition" resultMap="BaseResultMap" resultType="com.northland.domain.ProductInformation">
+        select * from VWBC_ZN_Planned_Cost_For_Web where 1=1
+        <set>
+            <if test="seriesName != null">
+                and seriesName like #{seriesName}
+            </if>
+            <if test='MaterialShortName != null'>
+                and MaterialShortName like #{MaterialShortName}
+            </if>
+            <if test='StyleCode != null'>
+                and StyleCode like #{StyleCode}
+            </if>
+            <if test='brand != null'>
+                and brand in (${brand})
+            </if>
+            <if test='YearNo != null'>
+                and YearNo in (${YearNo})
+            </if>
+            <if test='SexName != null'>
+                and SexName in (${SexName})
+            </if>
+            <if test='SeasonName != null'>
+                and SeasonName in (${SeasonName})
+            </if>
+            <if test='commodityLevelName != null'>
+                and commodityLevelName='%${commodityLevelName}%'
+            </if>
+
+        </set>
+        order by saleDate
     </select>
 
 </mapper>

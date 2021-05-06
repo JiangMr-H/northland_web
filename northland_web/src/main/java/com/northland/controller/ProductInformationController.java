@@ -32,6 +32,7 @@ public class ProductInformationController {
     IProductInformationDao iProductInformationDao;
 
     public static List<ProductInformation> listForExcel = new ArrayList<>();
+    public static List<ProductInformation> AllForExcel= new ArrayList<>();
 
     /**
      * @return
@@ -114,7 +115,7 @@ public class ProductInformationController {
      */
     @RequestMapping(value = "/getAll.do",method = RequestMethod.POST)
     @ResponseBody
-    public String findBy(@RequestParam(name = "SeriesName", required = false)String SeriesName, @RequestParam(name = "StyleCode", required = false) String StyleCode,
+    public ModelAndView findBy(@RequestParam(name = "SeriesName", required = false)String SeriesName, @RequestParam(name = "StyleCode", required = false) String StyleCode,
                                            @RequestParam(name = "MaterialShortName", required = false) String MaterialShortName, @RequestParam(name = "brand", required = false)List brand,
                                            @RequestParam(name = "yearNo", required = false) List yearNo, @RequestParam(name = "seasonName", required = false) List seasonName,
                                            @RequestParam(name = "sexName", required = false) List sexName, @RequestParam(name = "commoditylevelname", required = false) List commoditylevelname, HttpServletResponse response) throws Exception {
@@ -148,23 +149,14 @@ public class ProductInformationController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-      /*  ObjectMapper objectMapper = new ObjectMapper();
-          brand = objectMapper.readValue(brand, List.class);
-          yearNo =  objectMapper.readValue((JsonParser) yearNo,List.class);
-          sexName =  objectMapper.readValue((JsonParser) sexName,List.class);
-          seasonName =  objectMapper.readValue((JsonParser) seasonName,List.class);
-          commoditylevelname =  objectMapper.readValue((JsonParser) commoditylevelname,List.class);*/
-
+        ModelAndView mv = new ModelAndView();
         List<ProductInformation> allList = iProductInformationService.findByCondition(SeriesName,MaterialShortName,StyleCode,brand,
                 yearNo,sexName,seasonName,commoditylevelname);
             listForExcel=allList;
-
-        String str= JSON.toJSON(allList).toString();
-        response.reset();
-        response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write(str);
-        System.out.println("*********** -----"+allList.size());
-        return str;
+        PageInfo pageInfo = new PageInfo(allList);
+        mv.addObject("pageInfo",pageInfo);
+        mv.setViewName("productInformation");
+        return mv;
     }
 
     @RequestMapping("/ExportExcel.do")
@@ -196,6 +188,11 @@ public class ProductInformationController {
         out.flush();
     }
 
+    /**
+     * 全部数据导出
+     * @param response
+     * @throws Exception
+     */
     @RequestMapping("/ExportAllExcel.do")
     public void export(HttpServletResponse response) throws Exception {
         ServletOutputStream out = response.getOutputStream();
@@ -206,7 +203,11 @@ public class ProductInformationController {
         sheet.setAutoWidth(Boolean.TRUE);
         // 第一个 sheet 名称
         sheet.setSheetName("货品资料");
-        writer.write(iProductInformationService.findExcel(), sheet);
+        //从定时查询中获取数据  如果缓存中没有数据
+        if(AllForExcel.toArray().length==0){
+            AllForExcel = iProductInformationDao.findExcel();
+        }
+        writer.write(AllForExcel, sheet);
         //通知浏览器以附件的形式下载处理，设置返回头要注意文件名有中文
         response.setHeader("Content-disposition", "attachment;filename=" + new String( fileName.getBytes("gb2312"), "ISO8859-1" ) + ".xlsx");
         writer.finish();
